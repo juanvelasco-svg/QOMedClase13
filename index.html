@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lípidos | Química Orgánica</title>
+<style>
+    :root {
+        --QOMed-gold: #D4AF37;
+        --QOMed-dark: #1a1a2e;
+        --QOMed-blue: #16213e;
+        --QOMed-light: #0f3460;
+        --accent: #e94560;
+        --text: #2c3e50;
+        --white: #ffffff;
+        --sand: #f4e9c1;
+        --shadow: rgba(0, 0, 0, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== SANGRÍA DE VIÑETAS Y LISTAS ===== */
+    ul:not(.map-tree), ol {
+        padding-left: 2.4rem;
+        margin: 0.5rem 0 1rem;
+    }
+    ul:not(.map-tree) { list-style: none; }
+    ul:not(.map-tree) li, ol li { margin: 0.45rem 0; }
+
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    header { background: linear-gradient(135deg, var(--QOMed-dark) 0%, var(--QOMed-blue) 100%); color: var(--white); padding: 2rem; text-align: center; box-shadow: 0 6px 20px var(--shadow); position: relative; overflow: hidden; border-bottom: 5px solid var(--QOMed-gold); }
+    .logo-container { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .logo-QOMed { width: 120px; height: auto; background: var(--white); border-radius: 50%; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); color: var(--QOMed-gold); }
+    .subtitle { font-size: 1.2rem; opacity: 0.95; font-weight: 300; }
+    .nav-container { background: var(--QOMed-blue); padding: 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px var(--shadow); }
+    .nav-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; max-width: 1400px; margin: 0 auto; }
+    .nav-btn { background: var(--white); color: var(--QOMed-dark); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+    .nav-btn:hover, .nav-btn.active { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .section { display: none; animation: fadeIn 0.5s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--white); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 8px 24px var(--shadow); border-left: 6px solid var(--QOMed-gold); transition: transform 0.3s ease; }
+    .card:hover { transform: translateY(-5px); }
+    h2 { color: var(--QOMed-blue); margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 3px solid var(--QOMed-gold); display: flex; align-items: center; gap: 0.8rem; font-size: 2rem; }
+    h3 { color: var(--QOMed-light); margin: 1.5rem 0 1rem; font-size: 1.5rem; }
+    .molecule-img { max-width: 100%; height: auto; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 12px var(--shadow); }
+    .img-container { text-align: center; margin: 2rem 0; }
+    .calculator { background: linear-gradient(135deg, #fff9f5 0%, #fff0e8 100%); border: 3px solid var(--QOMed-gold); border-radius: 16px; padding: 2rem; margin: 2rem 0; }
+    .calc-title { color: var(--QOMed-blue); font-size: 1.6rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+    .calc-input-group { margin: 1rem 0; }
+    .calc-input-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--QOMed-dark); }
+    .calc-input-group input, .calc-input-group select { width: 100%; padding: 0.8rem; border: 2px solid var(--sand); border-radius: 8px; font-size: 1rem; transition: border-color 0.3s; }
+    .calc-input-group input:focus, .calc-input-group select:focus { outline: none; border-color: var(--QOMed-gold); }
+    .calc-button { background: var(--QOMed-blue); color: var(--white); border: none; padding: 1rem 2rem; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 12px var(--shadow); }
+    .calc-button:hover { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateY(-2px); }
+    .calc-result { background: var(--white); border-left: 5px solid var(--accent); padding: 1.5rem; margin-top: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
+    .calc-result.show { display: block; animation: slideIn 0.5s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px var(--shadow); }
+    th { background: linear-gradient(135deg, var(--QOMed-blue) 0%, var(--QOMed-light) 100%); color: var(--white); padding: 1.2rem; text-align: left; font-weight: 600; }
+    td { padding: 1rem 1.2rem; border-bottom: 1px solid #eee; transition: background 0.3s; }
+    tr:hover td { background: #f8fff0; }
+    .info-box { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 5px solid #2196f3; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .tip-box { background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%); border-left: 5px solid #ffc107; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .bio-box { background: linear-gradient(135deg, #d1ecf1 0%, #a8dadc 100%); border-left: 5px solid #17a2b8; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .pharma-box { background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%); border-left: 5px solid #dc3545; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .problem-box { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #28a745; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    details.solution { margin-top: 1rem; background: #f8f9fa; border: 2px solid var(--QOMed-light); border-radius: 10px; padding: 0.8rem 1.2rem; }
+    details.solution summary { cursor: pointer; font-weight: 700; color: var(--QOMed-light); }
+    details.solution[open] summary { margin-bottom: 0.8rem; border-bottom: 1px dashed var(--QOMed-light); padding-bottom: .4rem; }
+    .mnemonic-card { background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%); border: 3px solid var(--accent); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; position: relative; overflow: hidden; }
+    .mnemonic-title { color: var(--accent); font-weight: 700; margin-bottom: 0.8rem; font-size: 1.2rem; }
+    .glossary-term { background: var(--white); border: 2px solid var(--QOMed-gold); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; cursor: pointer; transition: all 0.3s; }
+    .glossary-term:hover { background: #fff9e6; transform: translateX(5px); }
+    .glossary-definition { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--QOMed-gold); }
+    .glossary-definition.show { display: block; animation: fadeIn 0.3s ease; }
+    .error-card { background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%); border-left: 5px solid #dc3545; padding: 1.5rem; margin: 1rem 0; border-radius: 0 12px 12px 0; }
+    .error-title { color: #dc3545; font-weight: 700; margin-bottom: 0.5rem; }
+    .correction { background: #d4edda; border-left: 3px solid #28a745; padding: 1rem; margin-top: 1rem; border-radius: 0 8px 8px 0; }
+    .quiz-container { background: linear-gradient(135deg, var(--QOMed-blue) 0%, var(--QOMed-light) 100%); color: var(--white); border-radius: 16px; padding: 2rem; margin: 2rem 0; }
+    .quiz-question { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 600; }
+    .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .quiz-option { background: var(--white); color: var(--text); border: 3px solid transparent; padding: 1.2rem; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+    .quiz-option:hover:not(:disabled) { border-color: var(--QOMed-gold); transform: translateY(-3px); }
+    .quiz-option:disabled { cursor: not-allowed; opacity: 0.95; }
+    .quiz-option.correct { background: #4caf50; color: white; border-color: #2e7d32; }
+    .quiz-option.incorrect { background: #f44336; color: white; border-color: #c62828; }
+    .quiz-progress { max-width: 720px; margin: 0 auto 1rem; }
+    .quiz-progress-bar-bg { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+    .quiz-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QOMed-gold), var(--accent)); transition: width 0.4s; }
+    .quiz-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .quiz-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; background: var(--QOMed-light); }
+    .footer { background: var(--QOMed-dark); color: var(--white); text-align: center; padding: 2.5rem; margin-top: 3rem; border-top: 5px solid var(--QOMed-gold); }
+    .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; border-radius: 12px; box-shadow: 0 4px 12px var(--shadow); }
+    .table-responsive table { min-width: 600px; width: 100%; margin: 0; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab { background: var(--sand); border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .tab.active { background: var(--QOMed-gold); color: var(--QOMed-dark); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+    .fc-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .fc-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; }
+    .fc-stat.good { background: #28a745; } .fc-stat.bad { background: #dc3545; } .fc-stat.pending { background: #6c757d; } .fc-stat.total { background: var(--QOMed-light); }
+    .fc-progress { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; max-width: 720px; margin: 0 auto 1.5rem; }
+    .fc-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QOMed-gold), var(--accent)); transition: width 0.4s; }
+    .flashcard-scene { perspective: 1400px; max-width: 720px; height: 320px; margin: 0 auto 1.5rem; }
+    .flashcard { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .fc-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: auto; box-shadow: 0 8px 24px var(--shadow); font-size: 1.15rem; }
+    .fc-front { background: linear-gradient(135deg, var(--QOMed-blue), var(--QOMed-light)); color: #fff; border: 3px solid var(--QOMed-gold); }
+    .fc-back { background: linear-gradient(135deg, #fff9e6, var(--sand)); color: var(--text); border: 3px solid var(--QOMed-gold); transform: rotateY(180deg); }
+    .fc-label { font-size: 0.85rem; letter-spacing: 2px; font-weight: 800; opacity: 0.8; margin-bottom: 1rem; }
+    .fc-hint { margin-top: 1rem; font-size: 0.85rem; opacity: 0.7; font-style: italic; }
+    .fc-controls { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+    .fc-btn { border: none; padding: 0.9rem 2rem; border-radius: 30px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; color: #fff; }
+    .fc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .fc-btn.good { background: #28a745; } .fc-btn.bad { background: #dc3545; }
+    .fc-btn:not(:disabled):hover { transform: translateY(-3px); }
+    .fc-link { background: none; border: none; color: #6c757d; text-decoration: underline; cursor: pointer; font-size: 0.85rem; margin-top: 1rem; }
+
+    /* ===== MAPA CONCEPTUAL ===== */
+    .map-container { overflow-x: auto; padding: 1rem 0; }
+    .map-tree, .map-tree ul { list-style: none; margin: 0; padding-left: 0; }
+    .map-tree ul { display: none; padding-left: 1.6rem; margin: 0.6rem 0 0; border-left: 3px solid var(--QOMed-gold); }
+    .map-tree li.open > ul { display: block; animation: fadeIn 0.4s ease; }
+    .map-tree li { margin: 0.4rem 0; }
+    .map-node { display: inline-block; background: var(--QOMed-blue); color: #fff; padding: 0.6rem 1.1rem; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .map-node:hover { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateX(4px); }
+    .map-node.root { background: var(--accent); font-size: 1.15rem; }
+    .map-node.branch { background: var(--QOMed-light); }
+    .map-leaf { display: inline-block; background: var(--sand); color: var(--text); padding: 0.45rem 0.9rem; border-radius: 8px; font-size: 0.95rem; border: 2px solid var(--QOMed-gold); }
+    li.has-children > .map-node::before { content: '▶ '; font-size: 0.8em; }
+    li.has-children.open > .map-node::before { content: '▼ '; font-size: 0.8em; }
+
+    @media (max-width: 768px) {
+        h1 { font-size: 1.8rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.2rem; }
+        .logo-container { flex-direction: column; gap: 1rem; } .logo-QOMed { width: 80px; }
+        .container { padding: 1rem; } .card { padding: 1.5rem; }
+        .nav-buttons { gap: 0.5rem; } .nav-btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
+        .quiz-options { grid-template-columns: 1fr; }
+        .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+        .tab { flex-shrink: 0; padding: 0.6rem 1rem; font-size: 0.9rem; }
+        .flashcard-scene { height: 360px; } .fc-face { font-size: 1rem; padding: 1rem; }
+    }
+    @media (max-width: 480px) {
+        h1 { font-size: 1.4rem; } .subtitle { font-size: 0.9rem; } header { padding: 1rem; }
+        .card { padding: 1rem; } .nav-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
+    }
+</style>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="Logo-QOMed.png" alt="Logo QOMed" class="logo-QOMed">
+        <div>
+            <h1>Química Orgánica</h1>
+            <p class="subtitle">Especializada para alumnos de Medicina</p>
+            <p class="subtitle">Capítulo 13: Lípidos</p>
+        </div>
+    </div>
+</header>
+
+<nav class="nav-container">
+    <div class="nav-buttons">
+        <button class="nav-btn active" onclick="showSection('inicio', this)">🏠 Inicio</button>
+        <button class="nav-btn" onclick="showSection('conceptos', this)">📚 Conceptos</button>
+        <button class="nav-btn" onclick="showSection('mapa', this)">🗺️ Mapa Conceptual</button>
+        <button class="nav-btn" onclick="showSection('flashcards', this)">🃏 Flashcards</button>
+        <button class="nav-btn" onclick="showSection('calculadoras', this)">🧮 Herramientas</button>
+        <button class="nav-btn" onclick="showSection('aplicaciones', this)">🏥 Aplicaciones</button>
+        <button class="nav-btn" onclick="showSection('mnemotecnias', this)">🧠 Mnemotecnias</button>
+        <button class="nav-btn" onclick="showSection('glosario', this)">📖 Glosario</button>
+        <button class="nav-btn" onclick="showSection('errores', this)">⚠️ Errores Comunes</button>
+        <button class="nav-btn" onclick="showSection('bibliografia', this)">📚 Bibliografía</button>
+        <button class="nav-btn" onclick="showSection('quiz', this)">🎯 Quiz</button>
+    </div>
+</nav>
+
+<div class="container">
+
+<!-- ============ INICIO ============ -->
+<section id="inicio" class="section active">
+    <div class="card">
+        <h2>🎯 Objetivos de la Sesión</h2>
+        <div class="info-box">
+            <ul style="font-size: 1.1rem; line-height: 2;">
+                <li>✓ Identificar los principales tipos de lípidos.</li>
+                <li>✓ Identificar las funciones y clasificación de los lípidos.</li>
+                <li>✓ Reconocer los ácidos grasos saturados e insaturados.</li>
+                <li>✓ Identificar a los lípidos no saponificables.</li>
+            </ul>
+        </div>
+        <h3>🩺 Importancia para la Medicina</h3>
+        <div class="bio-box">
+            <div><strong>¿Por qué un futuro médico debe dominar la química de los lípidos?</strong>
+                <ul style="font-size: 1rem; margin-top: 1rem;">
+                    <li>• Son la <strong>principal reserva energética</strong> del organismo (9,4 kcal/g).</li>
+                    <li>• Forman la <strong>bicapa lipídica</strong> de todas las membranas celulares, regulando el transporte y la comunicación.</li>
+                    <li>• Actúan como <strong>biocatalizadores y reguladores</strong>: vitaminas liposolubles, hormonas esteroideas (testosterona, estrógenos) y prostaglandinas (inflamación, dolor).</li>
+                    <li>• Su alteración está directamente relacionada con patologías como <strong>aterosclerosis, obesidad y enfermedades metabólicas</strong>.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tip-box"><strong>📌 Ruta de estudio sugerida:</strong> Conceptos → Mapa conceptual → Flashcards → Herramientas → Aplicaciones → Quiz (10 preguntas aleatorias de una base de 30; cada ciclo recarga preguntas nuevas).</div>
+        <div class="pharma-box"><strong>Regla de oro del capítulo:</strong> Los lípidos se definen por su <strong>solubilidad</strong> (insolubles en agua, solubles en disolventes orgánicos como éter, cloroformo y benceno), no por una estructura química única. Se clasifican en <strong>saponificables</strong> (con ácidos grasos) e <strong>insaponificables</strong> (sin ácidos grasos).</div>
+    </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos" class="section">
+    <div class="card">
+        <h2>📚 Conceptos</h2>
+        <div id="conceptos-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('conceptos-tabs','sub-definicion', this)">🧬 Definición y Funciones</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-clasificacion', this)">📂 Clasificación General</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-acidos', this)">🔗 Ácidos Grasos</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-saponificables', this)">🧼 Lípidos Saponificables</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-insaponificables', this)">💎 Lípidos Insaponificables</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-reacciones', this)">⚗️ Reacciones de Lípidos</button>
+            </div>
+
+            <div id="sub-definicion" class="tab-content active">
+                <h3>🧬 Definición y Funciones de los Lípidos</h3>
+                <div class="info-box">Los lípidos son biomoléculas orgánicas formadas básicamente por <strong>carbono, hidrógeno y oxígeno</strong>. Además, pueden contener fósforo, nitrógeno y azufre. Son un grupo muy heterogéneo que comparte dos características: <strong>1. Son insolubles en agua</strong> y <strong>2. Son solubles en disolventes orgánicos</strong> (éter, cloroformo, benceno).</div>
+                <h3>Funciones principales:</h3>
+                <ul>
+                    <li><strong>Función de reserva:</strong> Principal reserva energética. 1 g de grasa produce <strong>9,4 kilocalorías</strong> (proteínas y glúcidos solo 4,1 kcal/g).</li>
+                    <li><strong>Función estructural:</strong> Forman las bicapas lipídicas de las membranas. Recubren órganos y protegen mecánicamente (tejido adiposo de pies y manos).</li>
+                    <li><strong>Función biocatalizadora:</strong> Favorecen reacciones químicas. Ej: vitaminas lipídicas, hormonas esteroideas y prostaglandinas.</li>
+                    <li><strong>Función transportadora:</strong> Transporte de lípidos desde el intestino mediante emulsión gracias a los <strong>ácidos biliares</strong> y proteolípidos.</li>
+                </ul>
+            </div>
+
+            <div id="sub-clasificacion" class="tab-content">
+                <h3>📂 Clasificación de los Lípidos</h3>
+                <div class="info-box">Se clasifican en dos grandes grupos, atendiendo a si poseen ácidos grasos en su composición:</div>
+                <div class="table-responsive">
+                    <table>
+                        <tr><th>Grupo</th><th>Contiene Ácidos Grasos</th><th>Subtipos</th></tr>
+                        <tr><td><strong>Lípidos Saponificables</strong></td><td>Sí</td><td><strong>Simples:</strong> Acilglicéridos, Céridos (Ceras).<br><strong>Complejos:</strong> Fosfolípidos, Glucolípidos.</td></tr>
+                        <tr><td><strong>Lípidos Insaponificables</strong></td><td>No</td><td>Terpenos, Carotenoides, Esteroides, Prostaglandinas (Eicosanoides).</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div id="sub-acidos" class="tab-content">
+                <h3>🔗 Los Ácidos Grasos</h3>
+                <div class="info-box">Se obtienen por hidrólisis de grasas y aceites. Poseen una zona <strong>hidrófila</strong> (grupo carboxilo -COOH) y una zona <strong>lipófila</strong> (cadena hidrocarbonada). Por esto son moléculas <strong>anfipáticas</strong>.</div>
+                <div class="tip-box">
+                    <strong>Ácidos Grasos Saturados:</strong> Sin dobles enlaces. Extremadamente estables. Comunes: C14, C16 (palmítico), C18 (esteárico). Sólidos a temperatura ambiente (grasas).
+                </div>
+                <div class="bio-box">
+                    <strong>Ácidos Grasos Insaturados:</strong> Con dobles enlaces (configuración <em>cis</em> en la naturaleza).<br>
+                    • <strong>Monoinsaturados:</strong> 1 doble enlace (ej. oleico C18:1 n-9).<br>
+                    • <strong>Poliinsaturados:</strong> >1 doble enlace. <strong>Esenciales</strong> (el organismo no los sintetiza): ácido linoleico (18:2 n-6) y linolénico (18:3 n-3).
+                </div>
+                <div class="info-box"><strong>Nomenclatura ω (omega):</strong> En bioquímica, se numera desde el metilo terminal. Ej: 18:2 ω6 significa 18 carbonos, 2 dobles enlaces, el primero en el carbono 6 contando desde el final.</div>
+            </div>
+
+            <div id="sub-saponificables" class="tab-content">
+                <h3>🧼 Lípidos Saponificables</h3>
+                <div class="info-box"><strong>Acilglicéridos:</strong> Ésteres de glicerol con ácidos grasos. Monoglicéridos (1), diglicéridos (2) y <strong>triglicéridos</strong> (3). Son las grasas y aceites de reserva.</div>
+                <div class="tip-box"><strong>Céridos (Ceras):</strong> Ésteres de ácidos carboxílicos de cadena larga y alcoholes de cadena larga. Función protectora (hojas de plantas, piel, plumas, cera de abejas).</div>
+                <div class="bio-box"><strong>Fosfolípidos (Fosfoglicéridos):</strong> Derivados del ácido fosfatídico. Contienen fósforo. Ej: <strong>Fosfatidilcolina (Lecitina)</strong> y <strong>Cefalinas</strong> (fosfatidilserina/etanolamina). Componentes fundamentales de la bicapa lipídica.</div>
+                <div class="pharma-box"><strong>Esfingolípidos:</strong> No derivan del glicerol, sino de la <strong>esfingosina</strong> (aminoalcohol). Incluyen <strong>esfingomielinas</strong> (con fosfato, en vaina de mielina) y <strong>cerebrósidos</strong> (glucolípidos, sin fosfato, con azúcar, importantes en reconocimiento celular).</div>
+            </div>
+
+            <div id="sub-insaponificables" class="tab-content">
+                <h3>💎 Lípidos Insaponificables</h3>
+                <div class="info-box"><strong>Esteroides:</strong> Compuestos apolares con un sistema anular de cuatro ciclos. El más importante es el <strong>colesterol</strong> (precursor de todos los demás). Incluye hormonas sexuales (testosterona, estrógeno, progesterona) y ácidos biliares (ej. ácido cólico, emulsionante de grasas).</div>
+                <div class="bio-box"><strong>Eicosanoides:</strong> Derivados de ácidos grasos esenciales de 20 carbonos (omega 3 y 6). Incluyen <strong>prostaglandinas, tromboxanos, leucotrienos y prostaciclinas</strong>. Actúan como mediadores locales en inflamación, presión sanguínea, fiebre, dolor e inmunidad.</div>
+            </div>
+
+            <div id="sub-reacciones" class="tab-content">
+                <h3>⚗️ Reacciones de los Lípidos</h3>
+                <div class="info-box"><strong>Saponificación:</strong> Hidrólisis de triglicéridos con un álcali (NaOH/KOH). Produce glicerol y sales de ácidos grasos (<strong>jabones</strong>). Los jabones son anfipáticos y forman micelas.</div>
+                <div class="tip-box"><strong>Hidrogenación:</strong> Adición de H₂ a los dobles enlaces de aceites (insaturados) con catalizador. Convierte aceites líquidos en grasas sólidas ("endurecimiento"), aumentando su estabilidad y punto de fusión. Puede generar ácidos grasos <em>trans</em>.</div>
+                <div class="pharma-box"><strong>Oxidación (Enranciamiento):</strong> Los ácidos grasos poliinsaturados son fácilmente oxidables. La oxidación espontánea forma peróxidos/hidroperóxidos que se descomponen en aldehídos y cetonas de olor/sabor desagradable. Se acelera con luz, calor y metales (Fe, Cu). Destruye vitaminas A y E.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MAPA ============ -->
+<section id="mapa" class="section">
+    <div class="card">
+        <h2>🗺️ Mapa Conceptual Interactivo</h2>
+        <p style="margin-bottom:1rem;">Haz <strong>clic en cada nodo</strong> para desplegar u ocultar sus ramas.</p>
+        <div class="map-container">
+            <ul class="map-tree">
+                <li class="has-children">
+                    <div class="map-node root" onclick="toggleMap(this)">🧪 Lípidos (Capítulo 13)</div>
+                    <ul>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">📂 Clasificación</div>
+                            <ul>
+                                <li><span class="map-leaf">Saponificables (con ácidos grasos)</span></li>
+                                <li><span class="map-leaf">Insaponificables (sin ácidos grasos)</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🧼 Saponificables</div>
+                            <ul>
+                                <li><span class="map-leaf">Simples: Acilglicéridos (triglicéridos), Céridos (ceras)</span></li>
+                                <li><span class="map-leaf">Complejos: Fosfolípidos (lecitina), Glucolípidos (cerebrósidos), Esfingolípidos</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">💎 Insaponificables</div>
+                            <ul>
+                                <li><span class="map-leaf">Esteroides: Colesterol, hormonas sexuales, ácidos biliares</span></li>
+                                <li><span class="map-leaf">Eicosanoides: Prostaglandinas, leucotrienos (20 carbonos)</span></li>
+                                <li><span class="map-leaf">Terpenos y Carotenoides</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🔗 Ácidos Grasos</div>
+                            <ul>
+                                <li><span class="map-leaf">Saturados: Sin dobles enlaces, estables (palmítico, esteárico)</span></li>
+                                <li><span class="map-leaf">Insaturados: Con dobles enlaces cis (oleico)</span></li>
+                                <li><span class="map-leaf">Esenciales: Linoleico (ω6) y Linolénico (ω3)</span></li>
+                                <li><span class="map-leaf">Anfipáticos: Cabeza hidrófila (-COOH) y cola lipófila</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">⚗️ Reacciones</div>
+                            <ul>
+                                <li><span class="map-leaf">Saponificación: Triglicérido + Álcali → Jabón + Glicerol</span></li>
+                                <li><span class="map-leaf">Hidrogenación: Aceite + H₂ → Grasa sólida (puede generar trans)</span></li>
+                                <li><span class="map-leaf">Oxidación: Enranciamiento, formación de peróxidos tóxicos</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FLASHCARDS ============ -->
+<section id="flashcards" class="section">
+    <div class="card">
+        <h2>🃏 Flashcards de Estudio</h2>
+        <p>Haz <strong>clic en la tarjeta</strong> para voltearla y ver la respuesta. Luego califícate con honestidad.</p>
+        <div class="fc-stats">
+            <span class="fc-stat good">✅ Buenas: <span id="fc-good">0</span></span>
+            <span class="fc-stat bad">❌ Malas: <span id="fc-bad">0</span></span>
+            <span class="fc-stat pending">⏳ Pendientes: <span id="fc-left">0</span></span>
+            <span class="fc-stat total">📈 Historial: <span id="fc-hist">0 ✓ / 0 ✗</span></span>
+        </div>
+        <div class="fc-progress"><div class="fc-progress-bar" id="fc-bar"></div></div>
+        <div class="flashcard-scene" id="fc-scene">
+            <div class="flashcard" id="fc-card" onclick="flipCard()">
+                <div class="fc-face fc-front"><div class="fc-label">PREGUNTA</div><div id="fc-question"></div><span class="fc-hint">Clic para voltear ✨</span></div>
+                <div class="fc-face fc-back"><div class="fc-label">RESPUESTA</div><div id="fc-answer"></div></div>
+            </div>
+        </div>
+        <div class="fc-controls" id="fc-controls">
+            <button class="fc-btn good" id="btn-fc-good" onclick="gradeCard(true)" disabled>✅ La sabía</button>
+            <button class="fc-btn bad" id="btn-fc-bad" onclick="gradeCard(false)" disabled>❌ No la sabía</button>
+        </div>
+        <div id="fc-summary" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+        <div style="text-align:center;">
+            <button class="calc-button" onclick="resetFlashcards()">🔄 Reiniciar Flashcards</button><br>
+            <button class="fc-link" onclick="borrarHistorial()">Borrar historial acumulado</button>
+        </div>
+    </div>
+</section>
+
+<!-- ============ HERRAMIENTAS ============ -->
+<section id="calculadoras" class="section">
+    <div class="card">
+        <h2>🧮 Herramientas Interactivas</h2>
+        <div id="herramientas-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('herramientas-tabs','calc-clasificador', this)">🧪 Clasificador de Lípidos</button>
+                <button class="tab" onclick="showTab('herramientas-tabs','calc-energia', this)">🔥 Calculadora de Energía</button>
+                <button class="tab" onclick="showTab('herramientas-tabs','calc-acido', this)">🔗 Identificador de Ácido Graso</button>
+            </div>
+
+            <div id="calc-clasificador" class="tab-content active">
+                <div class="calculator">
+                    <div class="calc-title">🧪 Clasificador de Lípidos</div>
+                    <div class="calc-input-group"><label>Selecciona un lípido:</label>
+                        <select id="lipido-select">
+                            <option value="0">Triglicérido</option>
+                            <option value="1">Cera de abejas</option>
+                            <option value="2">Fosfatidilcolina (Lecitina)</option>
+                            <option value="3">Colesterol</option>
+                            <option value="4">Esfingomielina</option>
+                            <option value="5">Prostaglandina</option>
+                            <option value="6">Cerebrósido</option>
+                        </select>
+                    </div>
+                    <button class="calc-button" onclick="clasificarLipido()">Clasificar</button>
+                    <div id="lipido-resultado" class="calc-result"></div>
+                </div>
+            </div>
+
+            <div id="calc-energia" class="tab-content">
+                <div class="calculator">
+                    <div class="calc-title">🔥 Calculadora de Energía Lipídica</div>
+                    <div class="calc-input-group"><label>Gramos de grasa consumidos:</label>
+                        <input type="number" id="gramos-grasa" placeholder="Ej: 15" min="0">
+                    </div>
+                    <button class="calc-button" onclick="calcularEnergia()">Calcular Kilocalorías</button>
+                    <div id="energia-resultado" class="calc-result"></div>
+                    <div class="tip-box" style="margin-top:1rem;">Recuerda: 1 gramo de grasa produce <strong>9,4 kilocalorías</strong> en las reacciones metabólicas de oxidación, a diferencia de proteínas y glúcidos que solo producen 4,1 kcal/g.</div>
+                </div>
+            </div>
+
+            <div id="calc-acido" class="tab-content">
+                <div class="calculator">
+                    <div class="calc-title">🔗 Identificador de Ácido Graso</div>
+                    <div class="calc-input-group"><label>Selecciona un ácido graso:</label>
+                        <select id="acido-select">
+                            <option value="0">Ácido Palmítico (C16:0)</option>
+                            <option value="1">Ácido Esteárico (C18:0)</option>
+                            <option value="2">Ácido Oleico (C18:1 n-9)</option>
+                            <option value="3">Ácido Linoleico (C18:2 n-6)</option>
+                            <option value="4">Ácido Linolénico (C18:3 n-3)</option>
+                        </select>
+                    </div>
+                    <button class="calc-button" onclick="identificarAcido()">Identificar</button>
+                    <div id="acido-resultado" class="calc-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ APLICACIONES ============ -->
+<section id="aplicaciones" class="section">
+    <div class="card">
+        <h2>🏥 Aplicaciones Profesionales</h2>
+        <div id="aplicaciones-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('aplicaciones-tabs','aplic-medicina', this)">🩺 Medicina Clínica</button>
+                <button class="tab" onclick="showTab('aplicaciones-tabs','aplic-farma', this)">💊 Farmacología</button>
+                <button class="tab" onclick="showTab('aplicaciones-tabs','aplic-bioq', this)">🧬 Bioquímica y Fisiología</button>
+            </div>
+
+            <div id="aplic-medicina" class="tab-content active">
+                <div class="bio-box"><strong>Enfoque clínico:</strong> El perfil lipídico es fundamental en la prevención cardiovascular.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Aterosclerosis:</strong> ¿Por qué el colesterol, siendo un lípido insaponificable esencial, se convierte en un factor de riesgo?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>El colesterol es necesario para membranas y hormonas, pero su exceso en sangre (especialmente en LDL) se deposita en las paredes arteriales, formando placas de ateroma que obstruyen el flujo sanguíneo.</p>
+                </details>
+                <div class="problem-box"><strong>📋 Problema 2 — Digestión de grasas:</strong> Un paciente con resección de vesícula biliar tiene dificultades para digerir grasas. ¿Por qué?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Los <strong>ácidos biliares</strong> (derivados del colesterol, como el ácido cólico) actúan como agentes emulsionantes (detergentes biológicos) que permiten el transporte y digestión de lípidos en el medio acuoso del intestino.</p>
+                </details>
+            </div>
+
+            <div id="aplic-farma" class="tab-content">
+                <div class="pharma-box"><strong>Enfoque farmacológico:</strong> Modulación de lípidos para fines terapéuticos.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Antiinflamatorios no esteroideos (AINEs):</strong> ¿Qué vía lipídica bloquean fármacos como la aspirina o el ibuprofeno?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Bloquean la enzima ciclooxigenasa (COX), impidiendo la síntesis de <strong>prostaglandinas</strong> y tromboxanos (eicosanoides), que son los mediadores lipídicos del dolor, la fiebre y la inflamación.</p>
+                </details>
+                <div class="problem-box"><strong>📋 Problema 2 — Anticonceptivos orales:</strong> ¿En qué se basan muchas píldoras anticonceptivas desde el punto de vista lipídico?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Utilizan <strong>hormonas esteroideas sintéticas</strong> (como la noretindrona, derivada de la progesterona) que suprimen la ovulación, induciendo una infertilidad temporal.</p>
+                </details>
+            </div>
+
+            <div id="aplic-bioq" class="tab-content">
+                <div class="bio-box"><strong>Enfoque molecular:</strong> Estructura y función a nivel celular.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Esclerosis múltiple:</strong> Esta enfermedad desmielinizante afecta gravemente la conducción nerviosa. ¿Qué lípido es el principal componente de esa vaina?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Las <strong>esfingomielinas</strong>, que son fosfolípidos derivados de la esfingosina (no del glicerol), son componentes muy importantes de los tejidos nerviosos y la vaina de mielina.</p>
+                </details>
+                <div class="problem-box"><strong>📋 Problema 2 — Reconocimiento celular:</strong> ¿Qué lípidos de la membrana actúan como receptores antigénicos (ej. grupos sanguíneos)?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Los <strong>glucolípidos</strong> (como los cerebrósidos). Su parte glucídica está orientada hacia el exterior de la membrana plasmática, siendo fundamental para el reconocimiento celular.</p>
+                </details>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MNEMOTECNIAS ============ -->
+<section id="mnemotecnias" class="section">
+    <div class="card">
+        <h2>🧠 Mnemotecnias y Reglas</h2>
+        <div class="mnemonic-card"><div class="mnemonic-title">🔥 "Grasa = 9.4, el resto = 4.1"</div><p>1 gramo de grasa produce <strong>9,4 kcal</strong>. Proteínas y glúcidos solo producen <strong>4,1 kcal/g</strong>. Los lípidos son la reserva energética más eficiente.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🧼 "Saponificable = con Ácido Graso"</div><p>Si tiene ácido graso, es <strong>saponificable</strong> (puede hacer jabón). Si no tiene (esteroides, eicosanoides), es <strong>insaponificable</strong>.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🐟 "Omega 3 y 6 son Esenciales"</div><p>Ácido <strong>Linoleico</strong> (18:2 n-6) y <strong>Linolénico</strong> (18:3 n-3). El cuerpo no los sintetiza, deben venir de la dieta (pescado, semillas, aceites vegetales).</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">💎 "Colesterol = Padre de los Esteroides"</div><p>El colesterol es el esteroide más importante en humanos. De él derivan las hormonas sexuales (testosterona, estrógeno, progesterona) y los ácidos biliares.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🛡️ "Esfingomielina = Mielina"</div><p>Las <strong>esfingomielinas</strong> son fosfolípidos basados en <strong>esfingosina</strong> (no glicerol). Son clave en los tejidos nerviosos y la vaina de mielina.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">⚠️ "Enranciamiento = Oxidación de dobles enlaces"</div><p>Los ácidos grasos poliinsaturados se oxidan fácilmente, formando peróxidos de olor/sabor desagradable y destruyendo vitaminas A y E.</p></div>
+    </div>
+</section>
+
+<!-- ============ GLOSARIO ============ -->
+<section id="glosario" class="section">
+    <div class="card">
+        <h2>📖 Glosario Interactivo</h2>
+        <p style="margin-bottom:1.5rem;">Haz clic en cada término para ver su definición:</p>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Anfipático</strong><div class="glossary-definition">Molécula que posee simultáneamente una zona hidrófila (polar, soluble en agua) y una zona lipófila (apolar, soluble en disolventes orgánicos). Ej: ácidos grasos, jabones.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Saponificación</strong><div class="glossary-definition">Reacción de hidrólisis de un lípido saponificable (ej. triglicérido) con un álcali (NaOH/KOH), produciendo glicerol y sales de ácidos grasos (jabón).</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Ácido graso esencial</strong><div class="glossary-definition">Ácido graso poliinsaturado que el organismo no puede sintetizar y debe obtenerse de la dieta. Ej: ácido linoleico (ω6) y linolénico (ω3).</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Eicosanoide</strong><div class="glossary-definition">Lípido insaponificable derivado de ácidos grasos de 20 carbonos. Incluye prostaglandinas, tromboxanos y leucotrienos, con funciones de mediación local (inflamación, dolor).</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Cerebrósido</strong><div class="glossary-definition">Tipo de esfingolípido (glucolípido) que contiene un azúcar unido a la esfingosina, pero carece de grupo fosfato. Importante en reconocimiento celular.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Enranciamiento oxidativo</strong><div class="glossary-definition">Deterioro de grasas insaturadas por oxidación de sus dobles enlaces, formando peróxidos, aldehídos y cetonas de olor desagradable.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Nomenclatura ω (omega)</strong><div class="glossary-definition">Sistema bioquímico para nombrar ácidos grasos, numerando la cadena de carbonos desde el extremo del grupo metilo (CH₃) terminal, no desde el carboxilo.</div></div>
+    </div>
+</section>
+
+<!-- ============ ERRORES ============ -->
+<section id="errores" class="section">
+    <div class="card">
+        <h2>⚠️ Errores Comunes de Estudiantes</h2>
+        <div class="error-card"><div class="error-title">❌ Error 1: Creer que todos los lípidos tienen ácidos grasos</div><p><strong>Error:</strong> Asumir que el colesterol o las prostaglandinas se pueden saponificar.</p><div class="correction">✓ Corrección: Los lípidos <strong>insaponificables</strong> (esteroides, terpenos, eicosanoides) NO poseen ácidos grasos en su estructura y no forman jabón.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 2: Confundir el valor calórico de los lípidos</div><p><strong>Error:</strong> Pensar que las grasas aportan 4,1 kcal/g como los carbohidratos.</p><div class="correction">✓ Corrección: Las grasas son la principal reserva energética porque producen <strong>9,4 kcal/g</strong>, más del doble que proteínas o glúcidos.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 3: Numerar los ácidos grasos omega desde el carboxilo</div><p><strong>Error:</strong> Contar los carbonos empezando por el grupo -COOH para determinar el omega.</p><div class="correction">✓ Corrección: La nomenclatura <strong>ω (omega)</strong> cuenta los carbonos empezando desde el <strong>extremo metilo (CH₃) terminal</strong>, opuesto al carboxilo.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 4: Pensar que las ceras son triglicéridos</div><p><strong>Error:</strong> Clasificar las ceras como acilglicéridos.</p><div class="correction">✓ Corrección: Las ceras (céridos) son ésteres de ácidos grasos de cadena larga con <strong>alcoholes de cadena larga</strong>, no con glicerol.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 5: Olvidar que los cerebrósidos no tienen fosfato</div><p><strong>Error:</strong> Creer que todos los esfingolípidos son fosfolípidos.</p><div class="correction">✓ Corrección: Las esfingomielinas sí tienen fosfato, pero los <strong>cerebrósidos</strong> son glucolípidos y <strong>carecen de grupo fosfato</strong>.</div></div>
+        <div class="tip-box" style="margin-top:2rem;"><strong>💡 Consejo de estudio:</strong> Al estudiar un lípido, pregúntate siempre: 1) ¿Tiene ácidos grasos? (Saponificable vs Insaponificable). 2) ¿Cuál es su función principal? (Reserva, Estructural, Biocatalizadora o Transportadora). 3) ¿De qué alcohol deriva? (Glicerol o Esfingosina).</div>
+    </div>
+</section>
+
+<!-- ============ BIBLIOGRAFÍA ============ -->
+<section id="bibliografia" class="section">
+    <div class="card">
+        <h2>📚 Fuentes Bibliográficas Universitarias</h2>
+        <h3>Libros de Texto Principales</h3>
+        <div class="info-box"><strong>1. Lehninger, A.L. — "Principios de Bioquímica"</strong><br>• <strong>Cap. 10:</strong> Lípidos: estructura, función y metabolismo.<br>• 7ma edición, Omega, 2017. (Referencia gold standard para medicina).</div>
+        <div class="info-box"><strong>2. Wade, L.G. — "Química Orgánica"</strong><br>• <strong>Cap. 25:</strong> Lípidos y sus reacciones (saponificación, hidrogenación).<br>• 9na edición, Pearson, 2017.</div>
+        <div class="info-box"><strong>3. McMurry, J. — "Química Orgánica"</strong><br>• <strong>Cap. 26:</strong> Biomoléculas: Lípidos.<br>• 9na edición, Cengage Learning, 2016.</div>
+        <h3>Recursos Especializados</h3>
+        <div class="bio-box"><div><strong>4. Harper, Illustrated Biochemistry</strong><br>• Sección de lípidos de membrana, eicosanoides y metabolismo del colesterol. • 31ra ed., McGraw-Hill, 2018.</div></div>
+        <div class="pharma-box"><div><strong>5. Katzung, Basic & Clinical Pharmacology</strong><br>• Fármacos que actúan sobre el metabolismo lipídico (estatinas, fibratos) y AINEs (vía de prostaglandinas). • 14ta ed., McGraw-Hill, 2018.</div></div>
+    </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="section">
+    <div class="card">
+        <h2>🎯 Quiz de Autoevaluación</h2>
+        <p>Cada ciclo muestra <strong>10 preguntas al azar</strong> de una base de <strong>30</strong>. Cada vez que entras a esta pestaña o terminas un ciclo se sortean preguntas nuevas.</p>
+        <div class="quiz-stats">
+            <span class="quiz-stat" id="q-progress-text">Pregunta 1 de 10 • Aciertos: 0</span>
+            <span class="quiz-stat" id="q-history" style="background:#6c757d;"></span>
+        </div>
+        <div class="quiz-progress"><div class="quiz-progress-bar-bg"><div class="quiz-progress-bar" id="q-bar"></div></div></div>
+        <div id="quiz-container"></div>
+        <div id="quiz-result" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+        <div style="text-align:center; margin-top:2rem;">
+            <button class="calc-button" onclick="startNewCycle()">🔄 Reiniciar Quiz (nuevo ciclo aleatorio)</button>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    <p style="font-size:1.2rem; margin-bottom:1rem;">🎓 Universidad Peruana Cayetano Heredia</p>
+    <p>Facultad de Medicina • Departamento de Ciencias Básicas</p>
+    <p style="margin-top:1rem; font-style:italic;">"La química orgánica es el lenguaje de la vida"</p>
+    <p style="margin-top:2rem; font-size:0.9rem;">© 2026 - Material educativo para estudiantes de medicina</p>
+</footer>
+
+<script>
+    // ================= NAVEGACIÓN =================
+    function showSection(sectionId, btn) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        if (sectionId === 'quiz') startNewCycle();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function showTab(groupId, tabId, btn) {
+        const g = document.getElementById(groupId);
+        g.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        g.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (btn) btn.classList.add('active');
+    }
+    function toggleMap(node){ node.parentElement.classList.toggle('open'); }
+    function toggleDefinition(el){
+        const d = el.querySelector('.glossary-definition');
+        d.classList.toggle('show');
+        el.style.background = d.classList.contains('show') ? '#fff9e6' : 'var(--white)';
+    }
+    
+    // ================= FLASHCARDS =================
+    const flashcards = [
+     { q:'¿Cuáles son los elementos básicos de los lípidos?', a:'Carbono, hidrógeno y oxígeno. A veces también fósforo, nitrógeno y azufre.' },
+     { q:'¿Cuáles son las dos características comunes a todos los lípidos?', a:'1. Son insolubles en agua. 2. Son solubles en disolventes orgánicos (éter, cloroformo, benceno).' },
+     { q:'¿Cuántas kilocalorías produce 1 gramo de grasa en la oxidación metabólica?', a:'9,4 kilocalorías (frente a 4,1 kcal/g de proteínas y glúcidos).' },
+     { q:'¿Qué lípidos cumplen función biocatalizadora?', a:'Las vitaminas lipídicas, las hormonas esteroideas y las prostaglandinas.' },
+     { q:'¿En qué se basa la clasificación de lípidos saponificables vs insaponificables?', a:'En si poseen (saponificables) o no poseen (insaponificables) ácidos grasos en su composición.' },
+     { q:'Menciona dos ejemplos de lípidos saponificables simples.', a:'Acilglicéridos (triglicéridos) y Céridos (ceras).' },
+     { q:'¿Qué son los acilglicéridos?', a:'Ésteres de glicerol con ácidos grasos. Pueden ser mono, di o triglicéridos (estos últimos son grasas o aceites).' },
+     { q:'¿Qué son las ceras (céridos)?', a:'Ésteres formados por ácidos carboxílicos de cadena larga y alcoholes de cadena larga. Tienen función protectora.' },
+     { q:'¿Por qué las moléculas de ácidos grasos son anfipáticas?', a:'Porque tienen una zona hidrófila (grupo carboxilo -COOH) y una zona lipófila (cadena hidrocarbonada apolar).' },
+     { q:'¿Qué reacción produce jabón a partir de triglicéridos?', a:'La saponificación: hidrólisis con un álcali (NaOH/KOH) que produce glicerol y sales de ácidos grasos (jabón).' },
+     { q:'¿Cuál es la diferencia física entre grasas y aceites a temperatura ambiente?', a:'Las grasas son sólidas (ricos en ácidos grasos saturados) y los aceites son líquidos (ricos en insaturados).' },
+     { q:'¿Qué configuración mantienen los dobles enlaces en los ácidos grasos insaturados naturales?', a:'Configuración cis.' },
+     { q:'¿Desde dónde se numera la cadena en la nomenclatura bioquímica ω (omega)?', a:'Desde el metilo terminal (extremo opuesto al grupo carboxilo).' },
+     { q:'Nombra los dos ácidos grasos poliinsaturados esenciales.', a:'Ácido linoleico (18:2 n-6) y ácido linolénico (18:3 n-3).' },
+     { q:'¿Por qué se llaman "esenciales" a ciertos ácidos grasos?', a:'Porque no pueden sintetizarse en el organismo y deben obtenerse obligatoriamente de la dieta.' },
+     { q:'¿Qué efecto tiene la hidrogenación industrial de los aceites?', a:'Convierte aceites líquidos en grasas sólidas ("endurecimiento"), aumentando su estabilidad, pero puede generar ácidos grasos trans.' },
+     { q:'¿Qué es el enranciamiento oxidativo de las grasas?', a:'La oxidación de los dobles enlaces de ácidos grasos insaturados, formando peróxidos, aldehídos y cetonas de olor/sabor desagradable.' },
+     { q:'¿De qué ácido se biosintetizan los fosfoglicéridos?', a:'Del ácido fosfatídico.' },
+     { q:'¿Qué es la fosfatidilcolina y cuál es su nombre común?', a:'Es un fosfolípido fundamental de la bicapa lipídica, conocido comúnmente como Lecitina.' },
+     { q:'¿Dónde se hallan abundantemente las cefalinas?', a:'En los tejidos nerviosos del cerebro, intervienen en la coagulación y en la yema de huevo.' },
+     { q:'¿Cuál es la base estructural de las esfingomielinas?', a:'La esfingosina, un aminoalcohol que contiene una larga cadena insaturada (no derivan del glicerol).' },
+     { q:'¿Qué diferencia principal hay entre una esfingomielina y un cerebrósido?', a:'Las esfingomielinas contienen un grupo fosfato (son fosfolípidos), mientras que los cerebrósidos no lo tienen (son glucolípidos).' },
+     { q:'¿Hacia dónde está orientada la parte glucídica de los glucolípidos en la membrana?', a:'Hacia el exterior de la membrana plasmática, actuando en el reconocimiento celular y como receptores antigénicos.' },
+     { q:'¿Cuántos ciclos anulares forman la estructura base de todos los esteroides?', a:'Un sistema anular de cuatro ciclos.' },
+     { q:'¿Cuál es el esteroide más importante en los humanos y por qué?', a:'El colesterol, porque está presente abundantemente y todos los demás esteroides provienen de él.' },
+     { q:'Menciona dos hormonas esteroideas sexuales.', a:'Testosterona (masculina) y estrógeno/estradiol o progesterona (femenina).' },
+     { q:'¿Cuál es la función de los ácidos biliares (ej. ácido cólico) en la digestión?', a:'Actúan como agentes emulsionantes (detergentes) para ayudar a la digestión y transporte de grasas en medios acuosos.' },
+     { q:'¿De cuántos átomos de carbono son los eicosanoides?', a:'De 20 átomos de carbono (derivados de ácidos grasos esenciales omega 3 y 6).' },
+     { q:'Nombra tres tipos de eicosanoides.', a:'Prostaglandinas, tromboxanos y leucotrienos (también prostaciclinas).' },
+     { q:'¿Qué vitaminas liposolubles se destruyen durante el enranciamiento oxidativo?', a:'Particularmente las vitaminas A y E (tocoferoles).' }
+    ];
+    let fcIndex=0, fcFlipped=false, fcGood=0, fcBad=0, fcDone=false;
+    function fcUpdateStats(){
+        document.getElementById('fc-good').textContent=fcGood;
+        document.getElementById('fc-bad').textContent=fcBad;
+        document.getElementById('fc-left').textContent=Math.max(0,flashcards.length-fcIndex);
+        const tg=parseInt(localStorage.getItem('fc13TotalGood')||'0',10), tb=parseInt(localStorage.getItem('fc13TotalBad')||'0',10);
+        document.getElementById('fc-hist').textContent=tg+' ✓ / '+tb+' ✗';
+        document.getElementById('fc-bar').style.width=(fcIndex/flashcards.length*100)+'%';
+    }
+    function fcRenderCard(){
+        document.getElementById('fc-card').classList.remove('flipped'); fcFlipped=false;
+        document.getElementById('fc-question').textContent=flashcards[fcIndex].q;
+        document.getElementById('fc-answer').textContent=flashcards[fcIndex].a;
+        document.getElementById('btn-fc-good').disabled=true; document.getElementById('btn-fc-bad').disabled=true;
+        fcUpdateStats();
+    }
+    function flipCard(){
+        if(fcDone) return;
+        const c=document.getElementById('fc-card'); c.classList.toggle('flipped');
+        fcFlipped=c.classList.contains('flipped');
+        document.getElementById('btn-fc-good').disabled=!fcFlipped;
+        document.getElementById('btn-fc-bad').disabled=!fcFlipped;
+    }
+    function gradeCard(ok){
+        if(!fcFlipped||fcDone) return;
+        if(ok){ fcGood++; localStorage.setItem('fc13TotalGood',String(parseInt(localStorage.getItem('fc13TotalGood')||'0',10)+1)); }
+        else { fcBad++; localStorage.setItem('fc13TotalBad',String(parseInt(localStorage.getItem('fc13TotalBad')||'0',10)+1)); }
+        fcIndex++;
+        if(fcIndex<flashcards.length) { fcRenderCard(); } else { fcFinish(); }
+    }
+    function fcFinish(){
+        fcDone=true;
+        document.getElementById('fc-scene').style.display='none';
+        document.getElementById('fc-controls').style.display='none';
+        const pct=Math.round(fcGood/(fcGood+fcBad)*100);
+        const msg=pct>=80?' ¡Excelente! Dominas el capítulo 13: Lípidos.':(pct>=60?'💪 ¡Bien! Repasa las que fallaste.':'📚 Repasa Conceptos, Mapa y Errores Comunes.');
+        const s=document.getElementById('fc-summary');
+        s.innerHTML='<strong>📊 Resumen:</strong> ✅ '+fcGood+' • ❌ '+fcBad+' • Precisión <strong>'+pct+'%</strong><br>'+msg;
+        s.classList.add('show'); fcUpdateStats();
+    }
+    function resetFlashcards(){
+        fcIndex=0; fcGood=0; fcBad=0; fcDone=false;
+        document.getElementById('fc-scene').style.display='block';
+        document.getElementById('fc-controls').style.display='flex';
+        document.getElementById('fc-summary').classList.remove('show');
+        fcRenderCard();
+    }
+    function borrarHistorial(){ localStorage.removeItem('fc13TotalGood'); localStorage.removeItem('fc13TotalBad'); fcUpdateStats(); }
+    
+    // ================= HERRAMIENTAS =================
+    const lipidosData = [
+     { l:'Triglicérido', c:'Lípido Saponificable Simple', x:'Éster de glicerol con 3 ácidos grasos. Función de reserva energética.' },
+     { l:'Cera de abejas', c:'Lípido Saponificable Simple (Cérido)', x:'Éster de ácido graso de cadena larga y alcohol de cadena larga. Función protectora.' },
+     { l:'Fosfatidilcolina (Lecitina)', c:'Lípido Saponificable Complejo (Fosfolípido)', x:'Derivado del ácido fosfatídico. Componente fundamental de la bicapa lipídica.' },
+     { l:'Colesterol', c:'Lípido Insaponificable (Esteroide)', x:'Posee 4 ciclos anulares. Precursor de hormonas sexuales y ácidos biliares.' },
+     { l:'Esfingomielina', c:'Lípido Saponificable Complejo (Esfingolípido)', x:'Basado en esfingosina (no glicerol). Contiene fosfato. Clave en la vaina de mielina.' },
+     { l:'Prostaglandina', c:'Lípido Insaponificable (Eicosanoide)', x:'Derivado de ácidos grasos de 20 carbonos. Mediador de inflamación y dolor.' },
+     { l:'Cerebrósido', c:'Lípido Saponificable Complejo (Glucolípido)', x:'Esfingolípido con un azúcar, pero SIN grupo fosfato. Reconocimiento celular.' }
+    ];
+    function clasificarLipido(){
+        const d=lipidosData[parseInt(document.getElementById('lipido-select').value,10)];
+        const r=document.getElementById('lipido-resultado');
+        r.innerHTML='<strong>'+d.l+'</strong><br>Clasificación: <span style="color:#e94560;font-weight:bold;">'+d.c+'</span><br>💡 '+d.x;
+        r.classList.add('show');
+    }
+    function calcularEnergia(){
+        const g=parseFloat(document.getElementById('gramos-grasa').value);
+        const r=document.getElementById('energia-resultado');
+        if(isNaN(g) || g<0) { r.innerHTML='Por favor, ingresa un valor válido de gramos.'; r.classList.add('show'); return; }
+        const kcal = (g * 9.4).toFixed(1);
+        r.innerHTML='<strong>'+g+' gramos</strong> de grasa producen:<br><span style="color:#e94560;font-weight:bold;font-size:1.4rem;">'+kcal+' kilocalorías</span><br>💡 Recuerda: es más del doble de energía que la misma cantidad de proteínas o glúcidos (4,1 kcal/g).';
+        r.classList.add('show');
+    }
+    const acidosData = [
+     { a:'Ácido Palmítico (C16:0)', t:'Saturado', x:'Abundante en todas las grasas. Sin dobles enlaces, químicamente muy estable.' },
+     { a:'Ácido Esteárico (C18:0)', t:'Saturado', x:'Común en grasas animales y cacao. Sin dobles enlaces.' },
+     { a:'Ácido Oleico (C18:1 n-9)', t:'Monoinsaturado', x:'Muy extendido en la naturaleza (aceites vegetales). Un doble enlace en configuración cis.' },
+     { a:'Ácido Linoleico (C18:2 n-6)', t:'Poliinsaturado ESENCIAL', x:'No se sintetiza en el organismo. Precursor de la serie omega-6. Abundante en aceites de girasol, maíz, soja.' },
+     { a:'Ácido Linolénico (C18:3 n-3)', t:'Poliinsaturado ESENCIAL', x:'No se sintetiza en el organismo. Precursor de la serie omega-3. Abundante en soja y otros aceites vegetales.' }
+    ];
+    function identificarAcido(){
+        const d=acidosData[parseInt(document.getElementById('acido-select').value,10)];
+        const r=document.getElementById('acido-resultado');
+        r.innerHTML='<strong>'+d.a+'</strong><br>Tipo: <span style="color:#e94560;font-weight:bold;">'+d.t+'</span><br>💡 '+d.x;
+        r.classList.add('show');
+    }
+    
+    // ================= QUIZ (base 30, muestra 10 al azar) =================
+    const quizBank = [
+     { question:'¿Qué elementos componen básicamente a los lípidos?', options:['Solo Carbono e Hidrógeno','Carbono, Hidrógeno y Oxígeno (a veces P, N, S)','Carbono, Nitrógeno y Azufre exclusivamente','Solo Carbono y Oxígeno'], correct:1, explanation:'Los lípidos están formados básicamente por C, H y O, y pueden contener también P, N y S.' },
+     { question:'¿Cuál es la característica definitoria de solubilidad de los lípidos?', options:['Solubles en agua, insolubles en éter','Insolubles en agua, solubles en disolventes orgánicos como éter y cloroformo','Solubles tanto en agua como en benceno','Insolubles en todo tipo de disolventes'], correct:1, explanation:'Son insolubles en agua y solubles en disolventes orgánicos (éter, cloroformo, benceno).' },
+     { question:'¿Cuántas kilocalorías produce 1 gramo de grasa en la oxidación metabólica?', options:['4,1 kcal','7,0 kcal','9,4 kcal','12,5 kcal'], correct:2, explanation:'Un gramo de grasa produce 9,4 kilocalorías, mientras que proteínas y glúcidos solo producen 4,1 kcal/g.' },
+     { question:'¿Qué función cumplen las hormonas esteroideas y las prostaglandinas?', options:['Función de reserva energética','Función estructural de membranas','Función biocatalizadora','Función de transporte intestinal'], correct:2, explanation:'Cumplen función biocatalizadora, favoreciendo o facilitando reacciones químicas en los seres vivos.' },
+     { question:'¿Cómo se realiza el transporte de lípidos desde el intestino?', options:['Por difusión simple a través del agua','Mediante su emulsión gracias a los ácidos biliares y proteolípidos','Unidos exclusivamente a la hemoglobina','Por hidrogenación catalítica'], correct:1, explanation:'El transporte se realiza mediante emulsión gracias a los ácidos biliares y a los proteolípidos.' },
+     { question:'¿En qué se basa la clasificación de lípidos en saponificables e insaponificables?', options:['En su punto de fusión','En si poseen o no ácidos grasos en su composición','En su solubilidad en agua','En el número de carbonos'], correct:1, explanation:'Se clasifican atendiendo a si poseen (saponificables) o no posean (insaponificables) ácidos grasos en su composición.' },
+     { question:'¿Cuáles son ejemplos de lípidos saponificables simples?', options:['Fosfolípidos y glucolípidos','Acilglicéridos y céridos (ceras)','Esteroides y terpenos','Prostaglandinas y leucotrienos'], correct:1, explanation:'Los saponificables simples incluyen acilglicéridos y céridos. Los complejos son fosfolípidos y glucolípidos.' },
+     { question:'¿Cuántas moléculas de ácidos grasos contiene un triglicérido?', options:['Una','Dos','Tres','Cuatro'], correct:2, explanation:'Los triglicéridos contienen tres moléculas de ácidos grasos unidas al glicerol.' },
+     { question:'¿Qué son las ceras (céridos)?', options:['Ésteres de glicerol con ácidos grasos cortos','Ésteres formados por ácidos carboxílicos de cadena larga y alcoholes de cadena larga','Derivados del ácido fosfatídico','Hidrocarburos de cuatro ciclos'], correct:1, explanation:'Son ésteres formados por ácidos carboxílicos de cadena larga y alcoholes de cadena larga, con función protectora.' },
+     { question:'¿Por qué las moléculas de ácidos grasos son anfipáticas?', options:['Porque son completamente apolares','Porque tienen una zona hidrófila (-COOH) y una zona lipófila (cadena hidrocarbonada)','Porque son solubles en agua','Porque contienen fósforo'], correct:1, explanation:'Son anfipáticas porque poseen una zona hidrófila (grupo carboxilo) y una zona lipófila (cadena alifática apolar).' },
+     { question:'¿Qué se obtiene en la reacción de saponificación de un triglicérido?', options:['Solo ácidos grasos libres','Glicerol y sales de ácidos grasos (jabón)','Colesterol y agua','Alcoholes de cadena corta'], correct:1, explanation:'La saponificación con un álcali produce moléculas de glicerol y sales de ácidos grasos, denominadas jabón.' },
+     { question:'¿Qué diferencia física principal hay entre grasas y aceites?', options:['Las grasas son líquidas y los aceites sólidos','Las grasas son sólidas y los aceites son líquidos a temperatura ambiente','No hay diferencia física, solo química','Los aceites contienen más ácidos grasos saturados'], correct:1, explanation:'Las grasas son sólidas (ricas en saturados) mientras que los aceites son líquidos (ricos en insaturados) a temperatura ambiente.' },
+     { question:'¿Qué configuración mantienen los dobles enlaces en los ácidos grasos insaturados naturales?', options:['Trans','Cis','Lineal','Cíclica'], correct:1, explanation:'Los ácidos grasos insaturados naturales mantienen los dobles enlaces siempre en la configuración cis.' },
+     { question:'¿Desde dónde se numera la cadena en la nomenclatura bioquímica ω (omega)?', options:['Desde el carbono del carboxilo (C1)','Desde el metilo terminal','Desde el primer doble enlace','Desde el centro de la cadena'], correct:1, explanation:'En la nomenclatura ω, se numera la cadena a partir del metilo terminal, no desde el carboxilo.' },
+     { question:'¿Cuáles son los ácidos grasos poliinsaturados esenciales?', options:['Palmítico y esteárico','Linoleico (18:2 n-6) y linolénico (18:3 n-3)','Oleico y vaccénico','Araquídico y behénico'], correct:1, explanation:'El linoleico y el linolénico son esenciales, es decir, no pueden sintetizarse en el organismo y deben obtenerse de la dieta.' },
+     { question:'¿Por qué los ácidos grasos poliinsaturados son inestables?', options:['Porque son sólidos a temperatura ambiente','Porque son fácilmente oxidables, especialmente a partir de tres insaturaciones','Porque no pueden formar enlaces éster','Porque son demasiado largos'], correct:1, explanation:'Son fácilmente oxidables cuanto mayor sea el número de dobles enlaces, lo que puede llevar al enranciamiento.' },
+     { question:'¿De qué ácido se biosintetizan los fosfoglicéridos?', options:['Ácido linoleico','Ácido fosfatídico','Ácido cólico','Ácido araquidónico'], correct:1, explanation:'Los fosfoglicéridos son derivados lipídicos que contienen fósforo y se biosintetizan a partir del ácido fosfatídico.' },
+     { question:'¿Qué es la fosfatidilcolina?', options:['Un tipo de cera protectora','Un esteroide sexual','Un fosfolípido (lecitina) que forma parte de la bicapa lipídica de las membranas','Un eicosanoide inflamatorio'], correct:2, explanation:'La fosfatidilcolina (lecitina) es un derivado importante que forma parte de la bicapa lipídica de las membranas celulares.' },
+     { question:'¿Cuál es la base estructural de las esfingomielinas?', options:['El glicerol','La esfingosina, un aminoalcohol con cadena insaturada','El colesterol','El ácido fosfatídico'], correct:1, explanation:'La base estructural es la esfingosina, un aminoalcohol que contiene una larga cadena insaturada (no derivan del glicerol).' },
+     { question:'¿Qué diferencia a los cerebrósidos de las esfingomielinas?', options:['Los cerebrósidos tienen glicerol','Los cerebrósidos no tienen grupo fosfato (son glucolípidos, no fosfolípidos)','Las esfingomielinas no tienen ácidos grasos','Los cerebrósidos son esteroides'], correct:1, explanation:'Los cerebrósidos no tienen grupo fosfato, por lo que no son fosfolípidos, sino glucolípidos.' },
+     { question:'¿Cuántos ciclos anulares contienen todos los esteroides?', options:['Dos','Tres','Cuatro','Cinco'], correct:2, explanation:'Todos los esteroides contienen un sistema anular de cuatro ciclos.' },
+     { question:'¿Cuál es el esteroide más importante en los humanos?', options:['La testosterona','El colesterol','El ácido cólico','La progesterona'], correct:1, explanation:'El colesterol es el más importante, ya que está presente abundantemente y todos los demás esteroides provienen de él.' },
+     { question:'¿Cuál es la función de los ácidos biliares (ej. ácido cólico)?', options:['Producir energía en las mitocondrias','Actuar como agentes emulsionantes para ayudar a la digestión de las grasas','Sintetizar proteínas musculares','Formar la vaina de mielina'], correct:1, explanation:'Actúan como agentes emulsionantes (detergentes) para promover el transporte y digestión de lípidos en medios acuosos.' },
+     { question:'¿De cuántos átomos de carbono son los eicosanoides?', options:['10','15','20','24'], correct:2, explanation:'Todos los eicosanoides son moléculas de 20 átomos de carbono, originadas por la oxigenación de ácidos grasos esenciales.' },
+     { question:'Menciona tres tipos de eicosanoides.', options:['Colesterol, testosterona, estrógeno','Prostaglandinas, tromboxanos, leucotrienos','Triglicéridos, ceras, fosfolípidos','Linoleico, linolénico, oleico'], correct:1, explanation:'Los eicosanoides están agrupados en prostaglandinas, tromboxanos, leucotrienos y prostaciclinas.' },
+     { question:'¿Qué reacción industrial convierte aceites líquidos en grasas sólidas?', options:['Saponificación','Oxidación','Hidrogenación catalítica','Hidrólisis ácida'], correct:2, explanation:'La hidrogenación catalítica al doble enlace convierte aceites en grasas (endurecimiento), mejorando su almacenaje.' },
+     { question:'¿Qué es el enranciamiento oxidativo?', options:['La formación de jabón a partir de grasas','La oxidación de dobles enlaces formando peróxidos, aldehídos y cetonas de olor desagradable','La solidificación de aceites en el refrigerador','La síntesis de colesterol en el hígado'], correct:1, explanation:'Es la oxidación de los dobles enlaces de ácidos grasos insaturados con formación de peróxidos que se descomponen en compuestos de sabor/olor desagradable.' },
+     { question:'¿Qué vitaminas liposolubles se destruyen durante el enranciamiento oxidativo?', options:['Vitaminas B y C','Vitaminas A y E (tocoferoles)','Vitamina D y K exclusivamente','Ninguna vitamina se afecta'], correct:1, explanation:'El enranciamiento oxidativo destruye las vitaminas liposolubles, particularmente las vitaminas A y E.' },
+     { question:'¿Dónde se hallan abundantemente las cefalinas?', options:['En las hojas de las plantas','En los tejidos nerviosos del cerebro y la yema de huevo','Exclusivamente en el aceite de oliva','En las ceras de las abejas'], correct:1, explanation:'Las cefalinas (fosfatidilserina o fosfatidiletanolamina) se hallan abundantemente en los tejidos nerviosos del cerebro y en la yema de huevo.' },
+     { question:'¿Qué función cumple la parte glucídica de los glucolípidos en la membrana?', options:['Almacenar energía','Formar enlaces peptídicos','Reconocimiento celular y actuar como receptores antigénicos','Catalizar la hidrólisis de ATP'], correct:2, explanation:'La parte glucídica está orientada hacia el exterior de la membrana plasmática y es fundamental en el reconocimiento celular y como receptores antigénicos.' }
+    ];
+    let quizSet=[], qIdx=0, qScore=0, qAnswered=false, cycleDone=false, quizLastSet=[];
+    
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function overlapCount(sel, old){ const s=new Set(old.map(q=>q.question)); return sel.filter(q=>s.has(q.question)).length; }
+    
+    function startNewCycle(){
+        let sel, tries=0;
+        do { sel=shuffle(quizBank.slice()).slice(0,10); tries++; }
+        while (quizLastSet.length && overlapCount(sel, quizLastSet) > 4 && tries < 30);
+        quizLastSet=sel;
+        quizSet=sel;
+        qIdx=0; qScore=0; qAnswered=false; cycleDone=false;
+        document.getElementById('quiz-result').style.display='none';
+        document.getElementById('quiz-result').classList.remove('show');
+        renderQuestion(); updateQuizHistory();
+    }
+    function renderQuestion(){
+        const q=quizSet[qIdx];
+        document.getElementById('q-progress-text').textContent='Pregunta '+(qIdx+1)+' de 10 • Aciertos: '+qScore;
+        document.getElementById('q-bar').style.width=(qIdx/10*100)+'%';
+        let html='<div class="quiz-container"><div class="quiz-question">'+(qIdx+1)+'. '+q.question+'</div><div class="quiz-options">';
+        q.options.forEach(function(o,i){ html+='<button class="quiz-option" onclick="checkQuiz('+i+', this)">'+o+'</button>'; });
+        html+='</div><div id="quiz-feedback" style="display:none;margin-top:1rem;padding:1rem;border-radius:8px;color:#2c3e50;"></div>';
+        html+='<div style="text-align:center;margin-top:1.2rem;"><button id="btn-next" class="calc-button" style="display:none;" onclick="nextQuestion()">'+(qIdx===9?'📊 Ver resultados':'➡️ Siguiente pregunta')+'</button></div></div>';
+        document.getElementById('quiz-container').innerHTML=html;
+        qAnswered=false;
+    }
+    function checkQuiz(i,btn){
+        if(qAnswered) return; qAnswered=true;
+        const q=quizSet[qIdx];
+        const opts=btn.parentElement.querySelectorAll('.quiz-option');
+        opts.forEach(function(o){ o.disabled=true; });
+        const fb=document.getElementById('quiz-feedback');
+        if(i===q.correct){ btn.classList.add('correct'); qScore++;
+            fb.innerHTML='<span style="color:#2e7d32;font-weight:bold;">✅ ¡Correcto!</span><br>'+q.explanation;
+            fb.style.background='#e8f5e9';
+        } else { btn.classList.add('incorrect'); opts[q.correct].classList.add('correct');
+            fb.innerHTML='<span style="color:#c62828;font-weight:bold;">❌ Incorrecto.</span><br>'+q.explanation;
+            fb.style.background='#ffebee';
+        }
+        fb.style.display='block';
+        document.getElementById('q-progress-text').textContent='Pregunta '+(qIdx+1)+' de 10 • Aciertos: '+qScore;
+        document.getElementById('btn-next').style.display='inline-block';
+    }
+    function nextQuestion(){ if(qIdx<9){ qIdx++; renderQuestion(); } else { finishCycle(); } }
+    function finishCycle(){
+        cycleDone=true;
+        document.getElementById('q-bar').style.width='100%';
+        document.getElementById('quiz-container').innerHTML='';
+        const pct=Math.round(qScore*10);
+        let cycles=parseInt(localStorage.getItem('q13_cycles')||'0',10)+1;
+        const best=Math.max(parseInt(localStorage.getItem('q13_best')||'0',10),pct);
+        const totC=parseInt(localStorage.getItem('q13_totC')||'0',10)+qScore;
+        const totQ=parseInt(localStorage.getItem('q13_totQ')||'0',10)+10;
+        localStorage.setItem('q13_cycles',String(cycles)); localStorage.setItem('q13_best',String(best));
+        localStorage.setItem('q13_totC',String(totC)); localStorage.setItem('q13_totQ',String(totQ));
+        const msg=pct>=80?'🏆 ¡Excelente! Dominas el Capítulo 13: Lípidos.':(pct>=60?'💪 ¡Bien! Repasa los temas fallados en Conceptos y Errores Comunes.':'📚 Necesitas repasar: usa Mapa, Flashcards y Aplicaciones antes del próximo ciclo.');
+        const r=document.getElementById('quiz-result');
+        r.innerHTML='<strong>📊 Resultados del ciclo:</strong> '+qScore+'/10 correctas • <strong style="color:#e94560;">'+pct+'%</strong><br>'+msg+'<br><br>🔄 Pulsa "Reiniciar Quiz" o vuelve a entrar al Quiz para un <strong>nuevo ciclo con preguntas aleatorias</strong>.';
+        r.style.display='block'; r.classList.add('show');
+        document.getElementById('q-progress-text').textContent='Ciclo completado • Aciertos: '+qScore+'/10';
+        updateQuizHistory();
+    }
+    function updateQuizHistory(){
+        const cycles=parseInt(localStorage.getItem('q13_cycles')||'0',10);
+        const best=parseInt(localStorage.getItem('q13_best')||'0',10);
+        const totC=parseInt(localStorage.getItem('q13_totC')||'0',10);
+        const totQ=parseInt(localStorage.getItem('q13_totQ')||'0',10);
+        document.getElementById('q-history').innerHTML='📈 Ciclos: <strong>'+cycles+'</strong> | Mejor: <strong>'+best+'%</strong> | Promedio histórico: <strong>'+(totQ?Math.round(totC/totQ*100):0)+'%</strong>';
+    }
+    
+    // ================= INICIALIZACIÓN =================
+    document.addEventListener('DOMContentLoaded', function(){
+        startNewCycle();
+        fcRenderCard();
+    });
+
+    // ============================================================
+    //  AMPLIAR IMÁGENES AL HACER CLIC
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const imagenes = document.querySelectorAll('.img-container img, .molecule-img');
+        imagenes.forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                window.open(this.src, '_blank');
+            });
+        });
+    });
+</script>
+</body>
+</html>
